@@ -1,0 +1,1 @@
+AutoSwitch rulers: https://github.com/skinfiter/skinfiter.github.io.git
