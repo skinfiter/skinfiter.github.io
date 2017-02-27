@@ -7,13 +7,13 @@
   <meta name="Keywords" content="朋友圈 服务策略">
   <meta name="Description" content="">
   <link rel="stylesheet" type="text/css" href="../add-in/style.css" />
-  <title>微信朋友圈图片的服务策略</title>
+  <title>微信朋友圈图片的服务策略 - v2black</title>
  </head>
  <body>
   <p> 
   <div class="siteLogo"><a href = "../index.html"><img src = "../add-in/logo.png" /></a></div>
   <div class="siteMenu"><ul>
-<li><a href="../Elasticsearch使用实践/index.html">Elasticsearch使用实践</a>
+<li><a href="../Elasticsearch/index.html">Elasticsearch</a>
 <li><a href="../运维杂谈/index.html">运维杂谈</a>
 </ul></div>
   <hr>
@@ -22,12 +22,12 @@
 ​	在web缓存运营中要对微信朋友圈进行加速缓存，经抓包分析发现：1；微信朋友圈中的图片不都存在于同一类服务器中；2、微信朋友圈实现方式为基于webkit的应用框架。根据图片的来源，可以分为三类：<p>
 1. 本地图片<p>
    即用户自己上传（<span class=cnBracket>发表朋友圈</span>）的图片。该类图片会被直接存放在一个以IP地址标识的服务器上。推测，该IP所在的服务器为离用户最近的服务器；再推测，该服务器的IP地址由微信HTTPDNS服务获取。<p>
-   例：http://111.161.111.114/mmsns/gwhELYibibFdRM8Mu8EoiaNBv0UEdsffXgcTlg7fibL1nhKhR9SC673g7Aaygau7otoT17j9CSKHNd8/0?tp=wxpc<p>
+   例：<a href="http://111.161.111.114/mmsns/gwhELYibibFdRM8Mu8EoiaNBv0UEdsffXgcTlg7fibL1nhKhR9SC673g7Aaygau7otoT17j9CSKHNd8/0?tp=wxpc">复制此链接</a><p>
    如图：可以看出，该图片请求不包含cookie，可以缓存<p>
    <div align=center><img src="./pic/IP+资源.png "资源+ip"" alt="IP+资源" /></div><p>
 2. 公众号图片<p>
    即微信公众号中发表的图片。该类图片存放在一组以域名标识的服务器上，该组服务器应根据某种规则（<span class=cnBracket>如内容类型</span>）进行分配。<p>
-   例：http://mmbiz.qpic.cn/mmbiz_jpg/uggPXkDSooqnFjaez8Yu8FCyJTsXZXQMeI9UFOfEIFj4ZO2JkQGqaiatdXZejxxicyX8I7Du4nE5UiceEia6k3kzXQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1<p>
+   例：<a href="http://mmbiz.qpic.cn/mmbiz_jpg/uggPXkDSooqnFjaez8Yu8FCyJTsXZXQMeI9UFOfEIFj4ZO2JkQGqaiatdXZejxxicyX8I7Du4nE5UiceEia6k3kzXQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">复制此链接</a><p>
    如图：可以看出，该图片请求也不包含cookie，可以缓存<p>
    <div align=center><img src="./pic\域名+资源.png" alt="域名+ip" /></div><p>
    实验室测试：<p>
@@ -47,15 +47,15 @@
 <p>
 
   <hr>
-  <div class=timeStr>创建时间: 2017.02.27 11:53<br>最后修改: 2017.02.27 11:57</div>
+  <div class=timeStr>创建时间: 2017.02.27 11:53<br>最后修改: 2017.02.27 12:58</div>
     <div class=contact align="center"><h4><a href="../guestBook.html">有话要说？请在此留言</a></h4></div>
-  <div class=prevAndNext>上一篇: <a href="../Elasticsearch使用实践/ELA2-3二进制包安装.html">ELA2.3安装部署</a><br></div>
+  <div class=prevAndNext>上一篇: <a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a><br></div>
   <hr>
   <div class=ad>
 </div>
   <b>随机推荐:</b>
 <div class=randomArticels><ul>
-<li><a href="../Elasticsearch使用实践/ELA2-3二进制包安装.html">ELA2.3安装部署</a></li>
+<li><a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a></li>
 </ul></div>
   <hr>
   <div class=contact>Email: songxiao0722@sina.com, <br>QQ: 511843101</div>

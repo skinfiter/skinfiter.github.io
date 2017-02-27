@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="WDTP by UnderwaySoft">
+  <meta name="Author" content="songx">
+  <meta name="Keywords" content="Elasticsearch">
+  <meta name="Description" content="Elasticsearch生态系统的简单介绍">
+  <link rel="stylesheet" type="text/css" href="../add-in/style.css" />
+  <title>ELA - v2black</title>
+ </head>
+ <body>
+  <p> 
+  <div class="siteLogo"><a href = "../index.html"><img src = "../add-in/logo.png" /></a></div>
+  <div class="siteMenu"><ul>
+<li><a href="../Elasticsearch/index.html">Elasticsearch</a>
+<li><a href="../运维杂谈/index.html">运维杂谈</a>
+</ul></div>
+  <hr>
+  <div class="siteNavi"><a href="../index.html">v2black</a>/<a href="index.html">Elasticsearch</a>/</div>
+  <h1 id="ELA初识">ELA初识</h1><p>
+​	ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。                                      ---摘自百度百科<p>
+​	Lucene的目的是为软件开发人员提供一个简单易用的工具包，以方便的在目标系统中实现全文检索的功能，或者是以此为基础建立起完整的全文检索引擎。<strong>Lucene</strong>是一套用于全文检索和搜寻的开源程式库，由Apache软件基金会支持和提供。Lucene提供了一个简单却强大的应用程式接口，能够做全文索引和搜寻。在Java开发环境里Lucene是一个成熟的免费<a href="http://baike.baidu.com/view/9664.htm">开源</a>工具。就其本身而言，Lucene是当前以及最近几年最受欢迎的免费Java信息检索程序库。 ---摘自百度百科<p>
+​	个人的浅薄理解：Elasticsearch是一个分布式搜索引擎，开发语言为java，提供RESTful web接口。Lucence为Elasticsearch使用的核心技术。<p>
+<h2 id="他能做什么？">他能做什么？</h2><p>
+​	1、做数据库，ES提供了完整的数据库操作(增删改查)<p>
+​	2、做搜索引擎，其基于的Lucene本身就被用来搜索，另外基于他的产品还有Solr。<p>
+​	3、做数据分析，主要依赖于Elastic家族中的Kibana模块<p>
+<h2 id="Elastic家族成员">Elastic家族成员</h2><p>
+​	到目前为止，Elastic家族成员有Kibana、Elasticsearch、x-pack、Logstash、Beats(filebeat,packetbeat,winlogbeat,Metricbeat,heartbeat)、ES-Hadoop，在v5.0版本之后，Elastic家族的成员统一了版本号（<span class=cnBracket>即同一版本号的程序相互兼容</span>），最新版本号为v5.2.1.<p>
+<h3 id="简介">简介</h3><p>
+<br>
+​	Kibana：前端web页面，支持极大程度的图表自定义。（<span class=cnBracket>开源免费</span>）<p>
+​	Elasticsearch：数据库、搜索引擎。（<span class=cnBracket>开源免费</span>）<p>
+​	X-pack：v5.0之后的拓展包，包含了kibana上的graph，访问控制，安全传输，集群监控等功能。（<span class=cnBracket>免费试用1个月</span>）<p>
+​	Logstash：日志收集、清理、格式化输出。（<span class=cnBracket>开源免费</span>）<p>
+​	Beats：（<span class=cnBracket>开源免费</span>）<p>
+​		filebeat：收集文件。 <p>
+​		packetbeat：小流量网络抓包，用于网络程序的调试跟踪。<p>
+​		winlogbeat：收集windows系统日志。<p>
+​		metricbeat：收集类linux系统各项性能参数。<p>
+​		heartbeat：心跳检查？？？<p>
+​	ES-hadoop：ES的hadoop插件，没有使用过。<p>
+<p>
+<h3 id="目前，v5.0版本处于试用状态，线上主要使用版本为v2.3版本。主要用到的模块有：elasticsearch、logstash、kibana。">目前，v5.0版本处于试用状态，线上主要使用版本为v2.3版本。主要用到的模块有：elasticsearch、logstash、kibana。</h3><p>
+​	<p>
+​	<p>
+<p>
+​	<p>
+​	
+  <hr>
+  <div class=timeStr>创建时间: 2017.02.27 15:22<br>最后修改: 2017.02.27 17:30</div>
+    <div class=contact align="center"><h4><a href="../guestBook.html">有话要说？请在此留言</a></h4></div>
+  <div class=prevAndNext>上一篇: <a href="../运维杂谈/微信朋友圈图片的服务策略.html">微信朋友圈图片的服务策略</a><br></div>
+  <hr>
+  <div class=ad>
+</div>
+  <b>随机推荐:</b>
+<div class=randomArticels><ul>
+<li><a href="../运维杂谈/微信朋友圈图片的服务策略.html">微信朋友圈图片的服务策略</a></li>
+<li><a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a></li>
+</ul></div>
+  <hr>
+  <div class=contact>Email: songxiao0722@sina.com, <br>QQ: 511843101</div>
+  <p><hr>
+<table id="copyright"><tr><td id="copyright">&copy; 2017 songx All Right Reserved</td><td id="copyright" align="right">Powered by <a href="http://underwaySoft.com/works/wdtp/index.html" target="_blank">WDTP</a> </td></tr></table>
+
+  </body>
+</html>
