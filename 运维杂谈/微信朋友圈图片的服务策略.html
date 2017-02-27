@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="Generator" content="WDTP by UnderwaySoft">
   <meta name="Author" content="songx">
-  <meta name="Keywords" content="朋友圈 服务策略">
-  <meta name="Description" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="此文档的描述……">
   <link rel="stylesheet" type="text/css" href="../add-in/style.css" />
   <title>微信朋友圈图片的服务策略 - v2black</title>
  </head>
@@ -15,52 +15,167 @@
   <div class="siteMenu"><ul>
 <li><a href="../Elasticsearch/index.html">Elasticsearch</a>
 <li><a href="../运维杂谈/index.html">运维杂谈</a>
-<ul>
-<li><a href="../运维杂谈/原理思路/index.html">原理思路</a></li>
-<li><a href="../运维杂谈/python脚本/index.html">python脚本</a></li>
-</li></ul>
 </ul></div>
   <hr>
   <div class="siteNavi"><a href="../index.html">v2black</a>/<a href="index.html">运维杂谈</a>/</div>
-  <h1 id="微信朋友圈图片的服务策略">微信朋友圈图片的服务策略</h1><p>
-​	在web缓存运营中要对微信朋友圈进行加速缓存，经抓包分析发现：1；微信朋友圈中的图片不都存在于同一类服务器中；2、微信朋友圈实现方式为基于webkit的应用框架。根据图片的来源，可以分为三类：<p>
-1. 本地图片<p>
-   即用户自己上传（<span class=cnBracket>发表朋友圈</span>）的图片。该类图片会被直接存放在一个以IP地址标识的服务器上。推测，该IP所在的服务器为离用户最近的服务器；再推测，该服务器的IP地址由微信HTTPDNS服务获取。<p>
-   例：<a href="http://111.161.111.114/mmsns/gwhELYibibFdRM8Mu8EoiaNBv0UEdsffXgcTlg7fibL1nhKhR9SC673g7Aaygau7otoT17j9CSKHNd8/0?tp=wxpc">复制此链接</a><p>
-   如图：可以看出，该图片请求不包含cookie，可以缓存<p>
-   <div align=center><img src="./pic/IP+资源.png "资源+ip"" alt="IP+资源" /></div><p>
-2. 公众号图片<p>
-   即微信公众号中发表的图片。该类图片存放在一组以域名标识的服务器上，该组服务器应根据某种规则（<span class=cnBracket>如内容类型</span>）进行分配。<p>
-   例：<a href="http://mmbiz.qpic.cn/mmbiz_jpg/uggPXkDSooqnFjaez8Yu8FCyJTsXZXQMeI9UFOfEIFj4ZO2JkQGqaiatdXZejxxicyX8I7Du4nE5UiceEia6k3kzXQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">复制此链接</a><p>
-   如图：可以看出，该图片请求也不包含cookie，可以缓存<p>
-   <div align=center><img src="./pic\域名+资源.png" alt="域名+ip" /></div><p>
-   实验室测试：<p>
-   <div align=center><img src="./pic\实验1.png" alt="实验室测试结果" /></div><p>
-3. 外链图片<p>
-   即图片不在微信服务器上，完全外链进去的图片（<span class=cnBracket>也有可能是公众号，因微信公众号分类较多不在此详述</span>）。该类图片无规律，为普通web服务器，且质量混杂。有大型企业的服务入口、广告，一般内容分离比较完善；也有一些小企业的推广号，基本就是一台服务器全都管了，且访问量有限，地域局限。<p>
-   如：京东商城、微信投票<p>
-<h2 id="服务策略：">服务策略：</h2><p>
-1. 针对IP+资源的策略<p>
-   该类资源只能使用http请求劫持302的方式进行服务。<p>
-2. 针对域名+资源的策略<p>
-   该类资源可以使用DNS劫持、http请求302。<p>
-3. 针对外链<p>
-   不针对性服务。<p>
-<p>
-<p>
-<p>
+  <h1 id="<!doctype html>"><!doctype html></h1>
+
+<html lang="en">
+
+ <head>
+
+  <meta charset="UTF-8">
+
+  <meta name="Generator" content="WDTP by UnderwaySoft">
+
+  <meta name="Author" content="songx">
+
+  <meta name="Keywords" content="朋友圈 服务策略">
+
+  <meta name="Description" content="">
+
+  <link rel="stylesheet" type="text/css" href="../add-in/style.css" />
+
+  <title>微信朋友圈图片的服务策略 - v2black</title>
+
+ </head>
+
+ <body>
+
+  <p> <br>
+  <div class="siteLogo"><a href = "../index.html"><img src = "../add-in/logo.png" /></a></div>
+
+  <div class="siteMenu"><ul>
+
+<li><a href="../Elasticsearch/index.html">Elasticsearch</a>
+
+<li><a href="../运维杂谈/index.html">运维杂谈</a>
+
+<ul>
+
+<li><a href="../运维杂谈/原理思路/index.html">原理思路</a></li>
+
+<li><a href="../运维杂谈/python脚本/index.html">python脚本</a></li>
+
+</li></ul>
+
+</ul></div>
 
   <hr>
-  <div class=timeStr>创建时间: 2017.02.27 11:53<br>最后修改: 2017.02.27 17:38</div>
-    <div class=contact align="center"><h4><a href="../guestBook.html">有话要说？请在此留言</a></h4></div>
-  <div class=prevAndNext>上一篇: <a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a><br>下一篇: <a href="../Elasticsearch/ELA初识.html">ELA初识</a></div>
+<p>
+  <div class="siteNavi"><a href="../index.html">v2black</a>/<a href="index.html">运维杂谈</a>/</div>
+
+  <h1 id="微信朋友圈图片的服务策略">微信朋友圈图片的服务策略</h1><p>
+
+​	在web缓存运营中要对微信朋友圈进行加速缓存，经抓包分析发现：1；微信朋友圈中的图片不都存在于同一类服务器中；2、微信朋友圈实现方式为基于webkit的应用框架。根据图片的来源，可以分为三类：<p>
+
+1. 本地图片<p>
+
+   即用户自己上传（<span class=cnBracket><span class=cnBracket>发表朋友圈</span></span>）的图片。该类图片会被直接存放在一个以IP地址标识的服务器上。推测，该IP所在的服务器为离用户最近的服务器；再推测，该服务器的IP地址由微信HTTPDNS服务获取。<p>
+
+   例：<a href="http://111.161.111.114/mmsns/gwhELYibibFdRM8Mu8EoiaNBv0UEdsffXgcTlg7fibL1nhKhR9SC673g7Aaygau7otoT17j9CSKHNd8/0?tp=wxpc">复制此链接</a><p>
+
+   如图：可以看出，该图片请求不包含cookie，可以缓存<p>
+
+   <div align=center><img src="./pic/IP+资源.png "资源+ip"" alt="IP+资源" /></div><p>
+
+2. 公众号图片<p>
+
+   即微信公众号中发表的图片。该类图片存放在一组以域名标识的服务器上，该组服务器应根据某种规则（<span class=cnBracket><span class=cnBracket>如内容类型</span></span>）进行分配。<p>
+
+   例：<a href="http://mmbiz.qpic.cn/mmbiz_jpg/uggPXkDSooqnFjaez8Yu8FCyJTsXZXQMeI9UFOfEIFj4ZO2JkQGqaiatdXZejxxicyX8I7Du4nE5UiceEia6k3kzXQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">复制此链接</a><p>
+
+   如图：可以看出，该图片请求也不包含cookie，可以缓存<p>
+
+   <div align=center><img src="./pic\域名+资源.png" alt="域名+ip" /></div><p>
+
+   实验室测试：<p>
+
+   <div align=center><img src="./pic\实验1.png" alt="实验室测试结果" /></div><p>
+
+3. 外链图片<p>
+
+   即图片不在微信服务器上，完全外链进去的图片（<span class=cnBracket><span class=cnBracket>也有可能是公众号，因微信公众号分类较多不在此详述</span></span>）。该类图片无规律，为普通web服务器，且质量混杂。有大型企业的服务入口、广告，一般内容分离比较完善；也有一些小企业的推广号，基本就是一台服务器全都管了，且访问量有限，地域局限。<p>
+
+   如：京东商城、微信投票<p>
+
+<h2 id="服务策略：">服务策略：</h2><p>
+
+1. 针对IP+资源的策略<p>
+
+   该类资源只能使用http请求劫持302的方式进行服务。<p>
+
+2. 针对域名+资源的策略<p>
+
+   该类资源可以使用DNS劫持、http请求302。<p>
+
+3. 针对外链<p>
+
+   不针对性服务。<p>
+
+<p>
+
+<p>
+
+<p><p>
   <hr>
+<p>
+  <div class=timeStr>创建时间: 2017.02.27 11:53<br>最后修改: 2017.02.27 17:38</div>
+
+    <div class=contact align="center"><h4><a href="../guestBook.html">有话要说？请在此留言</a></h4></div>
+
+  <div class=prevAndNext>上一篇: <a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a>
+下一篇: <a href="../Elasticsearch/ELA初识.html">ELA初识</a></div>
+
+  <hr>
+<p>
+  <div class=ad>
+
+</div>
+
+  <b>随机推荐:</b>
+
+<div class=randomArticels><ul>
+
+<li><a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a></li>
+
+<li><a href="../Elasticsearch/ELA初识.html">ELA初识</a></li>
+
+</ul></div>
+
+  <hr>
+<p>
+  <div class=contact>Email: songxiao0722@sina.com, <br>QQ: 511843101</div>
+
+  <p><hr>
+<p>
+<table id="copyright"><tr><td id="copyright">&copy; 2017 songx All Right Reserved</td><td id="copyright" align="right">Powered by <a href="http://underwaySoft.com/works/wdtp/index.html" target="_blank">WDTP</a> </td></tr></table><p>
+  </body>
+
+</html>
+
+
+  <hr>
+  <div class=timeStr>创建时间: 2017.02.27 18:14<br>最后修改: 2017.02.27 18:14</div>
+
+    <div align=center><h5><p style="background:PowderBlue">
+	    本文版权：<a href="../index.html">v2black</a> &emsp;
+		共享协议：<a href='http://creativecommons.org/licenses/by-nc-nd/2.5/deed.zh' target='_blank'>署名-非商业使用-禁止演绎</a></h5>
+    </div>
+
+    <div class=page_navi align="center">
+	    <b><a href="../guestBook.html">评论/咨询/讨论/留言</a></b>
+	</div>
+
+  <hr>
+  <div class=prevAndNext>上一篇: <a href="../Elasticsearch/ELA初识.html">ELA 初识</a><br></div>
+
   <div class=ad>
 </div>
   <b>随机推荐:</b>
 <div class=randomArticels><ul>
 <li><a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a></li>
-<li><a href="../Elasticsearch/ELA初识.html">ELA初识</a></li>
+<li><a href="../Elasticsearch/ELA初识.html">ELA 初识</a></li>
 </ul></div>
   <hr>
   <div class=contact>Email: songxiao0722@sina.com, <br>QQ: 511843101</div>
