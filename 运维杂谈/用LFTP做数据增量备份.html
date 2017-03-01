@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="WDTP by UnderwaySoft">
+  <meta name="Author" content="songx">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="此文档的描述……">
+  <link rel="stylesheet" type="text/css" href="../add-in/style.css" />
+  <script src = "../add-in/hl.js"></script>
+  <script>hljs.initHighlightingOnLoad(); </script>
+  <title>用LFTP做数据增量备份 - v2black</title>
+ </head>
+ <body>
+  <p> 
+  <div class="siteLogo"><a href = "../index.html"><img src = "../add-in/logo.png" /></a></div>
+  <div class="siteMenu"><ul>
+<li><a href="../python/index.html">python</a>
+<li><a href="../Elasticsearch/index.html">Elasticsearch</a>
+<li><a href="../运维杂谈/index.html">运维杂谈</a>
+</ul></div>
+  <hr>
+  <div class="siteNavi"><a href="../index.html">v2black</a>/<a href="index.html">运维杂谈</a>/</div>
+  <h1 id="# 用LFTP做数据增量备份"># 用LFTP做数据增量备份</h1><p>
+​	工作中因需要对接其他厂商的日志用Elasticsearch进行分析，其日志提供方式为SFTP下载。<p>
+<h2 id="开始的做法：">开始的做法：</h2><p>
+​	每天取一次数据，用linux自带的ftp程序，使用expect自动登陆对方ftp服务器get数据。相关脚本如下：
+<pre><code>shell
+#!/usr/bin/expect -f                                                      
+set date [lindex $argv 0]  
+set timeout -1
+set serverip   [lindex $argv 1]  
+set serverport 22222                     
+set username   dfwx                          
+set password   Log_0920                           
+set localdir   /home1/log                                                            
+set remotedir_big /home/mr/zycdnupload/backup/zycdn/access/cdn/                            
+set remotedir_cache ./zycdnupload/zy_sort_log/cache
+spawn sftp -o port=$serverport ${username}@${serverip}                 
+expect {                                                     
+       "(yes/no)?" {                                               
+               send "yes\n"                                             
+               expect "*assword:" {                                     
+                       send "${password}\n"                                   
+               }                                                         
+       }                                                               
+       "*assword:" {                                               
+               send "${password}\n"                                     
+       }                                                           
+}                                                             
+expect "sftp&gt;"                                                 
+send "get ${remotedir_cache}/CN_access*_SCS*${date}* ${localdir}/cache/${date}/\n"             
+expect "sftp&gt;"                                               
+exit
+</code></pre><p>
+<h3 id="弊端：">弊端：</h3><p>
+1. 实时性差。后期客户要求了更高的实时性，一小时延时。<br>
+2. 单次数据量巨大，每天大概有800G的原始日志积累。<br>
+3. 入库慢。由于单次积累的数据量过大，导致入库需消耗大量时间。<p>
+<h2 id="解决方法：">解决方法：</h2><p>
+​	经过前辈的提醒，在网上找到了lftp可以支持增量同步。<p>
+改良后的脚本为：
+<pre><code>shell
+#!/bin/sh
+dd=&lt;code>date +%Y%m%d</code>
+
+mkdir -p /home1/log/cache/$dd/
+function get_log()
+{
+lftp -u username,password -e "mirror --delete --no-empty-dirs --only-newer  -I *SCS* --newer-than=$1 --verbose zycdnupload/zy_sort_log/cache /home1/log/cache/$1" sftp://$2:22233
+}
+get_log $dd 10.10.10.15 &
+</code></pre><p>
+​	为该脚本创建定时任务，每十分钟执行一次，同步远程数据。<p>
+<h3 id="lftp相关参数介绍">lftp相关参数介绍</h3><p>
+mirror  下载目录  <p>
+--delete    若远程文件不存在，删除本地文件<p>
+--no-empty-dirs   不创建空文件<p>
+--only-newer    仅同步比本地新的文件<p>
+-I *scs*  同步文件名中包含scs的文件<p>
+--newer-than=20170228  同步创建时间在20170228之后的文件<p>
+--verbose  显示详细信息<p>
+
+  <hr>
+  <div class=timeStr>创建时间: 2017.03.01 17:12<br>最后修改: 2017.03.01 17:12</div>
+
+    <div align=center><h5><p style="background:PowderBlue">
+	    本文版权：<a href="../index.html">v2black</a> &emsp;
+		共享协议：<a href='http://creativecommons.org/licenses/by-nc-nd/2.5/deed.zh' target='_blank'>署名-非商业使用-禁止演绎</a></h5>
+    </div>
+
+    <div class=page_navi align="center">
+	    <b><a href="../guestBook.html">评论/咨询/讨论/留言</a></b>
+	</div>
+
+  <hr>
+  <div class=prevAndNext>上一篇: <a href="../运维杂谈/微信朋友圈图片的服务策略.html">微信朋友圈图片的服务策略</a><br></div>
+
+  <div class=ad>
+</div>
+  <b>随机推荐:</b>
+<div class=randomArticels><ul>
+<li><a href="../运维杂谈/微信朋友圈图片的服务策略.html">微信朋友圈图片的服务策略</a></li>
+<li><a href="../Elasticsearch/ELA2-3二进制包安装.html">ELA2.3安装部署</a></li>
+<li><a href="../Elasticsearch/ELA初识.html">ELA 初识</a></li>
+</ul></div>
+  <hr>
+  <div class=contact>Email: songxiao0722@sina.com, <br>QQ: 511843101</div>
+  <p><hr>
+<table id="copyright"><tr><td id="copyright">&copy; 2017 songx All Right Reserved</td><td id="copyright" align="right">Powered by <a href="http://underwaySoft.com/works/wdtp/index.html" target="_blank">WDTP</a> </td></tr></table>
+
+  </body>
+</html>
